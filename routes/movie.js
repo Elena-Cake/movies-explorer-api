@@ -14,6 +14,7 @@ router.post('/', celebrate({
     director: Joi.string(),
     duration: Joi.number(),
     year: Joi.number(),
+    movieId: Joi.number(),
     description: Joi.string(),
     nameRU: Joi.string(),
     nameEN: Joi.string(),

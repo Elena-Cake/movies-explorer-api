@@ -17,6 +17,7 @@ const createMoviesDTO = (movie) => (
     thumbnail: movie.thumbnail,
     owner: movie.owner,
     coumovieId: movie._id,
+    movieId: movie.movieId,
     nameRU: movie.nameRU,
     nameEN: movie.nameEN,
   }
@@ -48,6 +49,7 @@ const createMovie = (req, res, next) => {
     trailerLink,
     thumbnail,
     coumovieId,
+    movieId,
     nameRU,
     nameEN,
   } = req.body;
@@ -62,6 +64,7 @@ const createMovie = (req, res, next) => {
       trailerLink,
       thumbnail,
       coumovieId,
+      movieId,
       nameRU,
       nameEN,
       owner: req.user._id,

@@ -14,6 +14,7 @@ const createUserDTO = (user) => (
 
 // GET http://localhost:3001/users/me
 const getProfile = (req, res, next) => {
+  console.log('get me');
   const userId = req.user._id;
   User
     .findById(userId)
@@ -33,12 +34,14 @@ const getProfile = (req, res, next) => {
     });
 };
 
-// PATCH http://localhost:3001/users/me/
+// PATCH http://localhost:3000/users/me/
 const updateProfile = (req, res, next) => {
-  const { name } = req.body;
+  console.log('patch me');
+  const { name, email } = req.body;
+  console.log(email);
   const userId = req.user._id;
   User
-    .findByIdAndUpdate(userId, { name }, { new: true, runValidators: true })
+    .findByIdAndUpdate(userId, { name, email }, { new: true, runValidators: true })
     .then((user) => {
       if (!user) {
         throw new UnderfinedError('Пользователь не найден');
