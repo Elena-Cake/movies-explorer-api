@@ -2,8 +2,7 @@ const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 
 const { getMovies, createMovie, deleteMovie } = require('../controllers/moviesControllers');
-
-const patternUrl = /(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?/i;
+const { PATTERN_URL } = require('../utils/constans');
 
 router.get('/', getMovies);
 
@@ -16,9 +15,9 @@ router.post('/', celebrate({
     description: Joi.string().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
-    image: Joi.string().required().pattern(patternUrl),
-    trailerLink: Joi.string().required().pattern(patternUrl),
-    thumbnail: Joi.string().required().pattern(patternUrl),
+    image: Joi.string().required().pattern(PATTERN_URL),
+    trailerLink: Joi.string().required().pattern(PATTERN_URL),
+    thumbnail: Joi.string().required().pattern(PATTERN_URL),
     movieId: Joi.number().required(),
   }),
 }), createMovie);

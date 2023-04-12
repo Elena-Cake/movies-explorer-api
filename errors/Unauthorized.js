@@ -1,9 +1,11 @@
+const { CodeStatus } = require('../constans/CodeStatus');
+
 class UnauthorizedError extends Error {
   constructor() {
     super();
-    this.message = 'Проверьте почту и пароль';
+    this.message = CodeStatus.UNAUTHORIZED.MESSAGE;
     this.name = 'AnauthorizedError';
-    this.statusCode = 401;
+    this.statusCode = CodeStatus.UNAUTHORIZED.CODE;
   }
 }
 

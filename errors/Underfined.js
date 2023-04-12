@@ -1,8 +1,10 @@
+const { CodeStatus } = require('../constans/CodeStatus');
+
 class UnderfinedError extends Error {
   constructor(message) {
     super(message);
     this.name = 'UnderfinedError';
-    this.statusCode = 404;
+    this.statusCode = CodeStatus.UNDERFINED.CODE;
   }
 }
 

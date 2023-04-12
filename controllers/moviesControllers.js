@@ -86,12 +86,11 @@ const createMovie = (req, res, next) => {
 const deleteMovie = (req, res, next) => {
   const { movieId } = req.params;
   const userId = req.user._id;
-  console.log(movieId);
   Movies
     .findById(movieId)
     .then((movie) => {
       if (!movie) {
-        throw new UnderfinedError('Фимльм не найден');
+        throw new UnderfinedError(CodeStatus.UNDERFINED.FILM_MESSAGE);
       }
       if (userId !== movie.owner.valueOf()) {
         throw new ForbiddenError();
