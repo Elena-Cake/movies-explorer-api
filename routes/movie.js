@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 
@@ -10,17 +9,17 @@ router.get('/', getMovies);
 
 router.post('/', celebrate({
   body: Joi.object().keys({
-    country: Joi.string(),
-    director: Joi.string(),
-    duration: Joi.number(),
-    year: Joi.number(),
-    movieId: Joi.number(),
-    description: Joi.string(),
-    nameRU: Joi.string(),
-    nameEN: Joi.string(),
+    country: Joi.string().required(),
+    director: Joi.string().required(),
+    duration: Joi.number().required(),
+    year: Joi.string().required(),
+    description: Joi.string().required(),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
     image: Joi.string().required().pattern(patternUrl),
     trailerLink: Joi.string().required().pattern(patternUrl),
     thumbnail: Joi.string().required().pattern(patternUrl),
+    movieId: Joi.number().required(),
   }),
 }), createMovie);
 
