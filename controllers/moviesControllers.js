@@ -23,7 +23,7 @@ const createMoviesDTO = (movie) => (
   }
 );
 
-// GET http://localhost:3001/movies/
+// GET http://localhost:3000/movies/
 const getMovies = (req, res, next) => {
   Movies
     .find({})
@@ -37,7 +37,7 @@ const getMovies = (req, res, next) => {
     .catch(next);
 };
 
-// POST http://localhost:3001/movies/
+// POST http://localhost:3000/movies/
 const createMovie = (req, res, next) => {
   const {
     country,
@@ -82,7 +82,7 @@ const createMovie = (req, res, next) => {
     });
 };
 
-// DELETE http://localhost:3001/movies/movieId
+// DELETE http://localhost:3000/movies/movieId
 const deleteMovie = (req, res, next) => {
   const { movieId } = req.params;
   const userId = req.user._id;

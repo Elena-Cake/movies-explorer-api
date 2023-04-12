@@ -13,6 +13,7 @@ const CodeStatus = {
   NO_VALIDATE: {
     CODE: 400,
     MESSAGE: 'Переданы некорректные данные',
+    MAIL_MESSAGE: 'Неправильный формат почты',
   },
   UNAUTHORIZED: {
     CODE: 401,

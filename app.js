@@ -8,6 +8,7 @@ const routes = require('./routes');
 const { PORT, DB_CONNECT_PATH } = require('./config');
 
 const errorHandler = require('./midldlewares/error-handler');
+const { requestLogger, errorLogger } = require('./midldlewares/logger');
 
 mongoose
   .connect(DB_CONNECT_PATH)
@@ -25,7 +26,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('*', cors());
 
+app.use(requestLogger);
 app.use(routes);
+app.use(errorLogger);
 
 app.use(errors());
 app.use(errorHandler);
