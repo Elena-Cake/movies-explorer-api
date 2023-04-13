@@ -1,9 +1,8 @@
 const { CodeStatus } = require('../constans/CodeStatus');
 
 class UnauthorizedError extends Error {
-  constructor() {
-    super();
-    this.message = CodeStatus.UNAUTHORIZED.MESSAGE;
+  constructor(message) {
+    super(message);
     this.name = 'AnauthorizedError';
     this.statusCode = CodeStatus.UNAUTHORIZED.CODE;
   }

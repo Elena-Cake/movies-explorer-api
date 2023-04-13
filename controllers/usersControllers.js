@@ -3,6 +3,7 @@ const { CodeStatus } = require('../constans/CodeStatus');
 const User = require('../models/user');
 const UnderfinedError = require('../errors/Underfined');
 const NoValidateError = require('../errors/NoValidate');
+const ConflictError = require('../errors/Conflict');
 
 const createUserDTO = (user) => (
   {
@@ -38,7 +39,7 @@ const updateProfile = (req, res, next) => {
   const { name, email } = req.body;
   const userId = req.user._id;
   User
-    .findByIdAndUpdate(userId, { name, email }, { new: true, runValidators: true })
+    .findByIdAndUpdate(userId, { name, email }, { new: true, runValidators: true, upsert: false })
     .then((user) => {
       if (!user) {
         throw new UnderfinedError(CodeStatus.UNDERFINED.USER_MESSAGE);
@@ -49,6 +50,10 @@ const updateProfile = (req, res, next) => {
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
         next(new NoValidateError());
+        return;
+      }
+      if (err.code === 11000) {
+        next(new ConflictError());
         return;
       }
       next(err);

@@ -44,7 +44,8 @@ const createUser = (req, res, next) => {
           }
           next(err);
         });
-    });
+    })
+    .catch(next);
 };
 
 // POST http://localhost:3001/login

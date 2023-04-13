@@ -25,8 +25,9 @@ const createMoviesDTO = (movie) => (
 
 // GET http://localhost:3000/movies/
 const getMovies = (req, res, next) => {
+  const userId = req.user._id;
   Movies
-    .find({})
+    .find({ owner: userId })
     .populate(['owner'])
     .then((movies) => {
       res.status(CodeStatus.OK.CODE)

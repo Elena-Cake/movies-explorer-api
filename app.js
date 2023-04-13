@@ -4,6 +4,7 @@ const { errors } = require('celebrate');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
+const helmet = require('helmet');
 
 const { PORT, DB_CONNECT_PATH } = require('./config');
 
@@ -22,6 +23,7 @@ mongoose
 
 const app = express();
 
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('*', cors());

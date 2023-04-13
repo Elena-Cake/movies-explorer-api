@@ -33,10 +33,10 @@ userSchema.statics.findUserByCredentials = function (email, password) {
             if (matched) {
               return user;
             }
-            return Promise.reject(new UnauthorizedError());
+            return Promise.reject(new UnauthorizedError(CodeStatus.UNAUTHORIZED.MESSAGE_AUTH));
           });
       }
-      return Promise.reject(new UnauthorizedError());
+      return Promise.reject(new UnauthorizedError(CodeStatus.UNAUTHORIZED.MESSAGE_AUTH));
     });
 };
 

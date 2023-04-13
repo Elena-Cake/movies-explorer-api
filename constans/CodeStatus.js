@@ -17,7 +17,8 @@ const CodeStatus = {
   },
   UNAUTHORIZED: {
     CODE: 401,
-    MESSAGE: 'Проверьте почту и пароль',
+    MESSAGE: 'Необходима авторизация',
+    MESSAGE_AUTH: 'Неправильные почта или пароль',
   },
   FORBIDDEN: {
     CODE: 403,
