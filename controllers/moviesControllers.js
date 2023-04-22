@@ -23,10 +23,11 @@ const createMoviesDTO = (movie) => (
   }
 );
 
-// GET http://localhost:3001/movies/
+// GET http://localhost:3000/movies/
 const getMovies = (req, res, next) => {
+  const userId = req.user._id;
   Movies
-    .find({})
+    .find({ owner: userId })
     .populate(['owner'])
     .then((movies) => {
       res.status(CodeStatus.OK.CODE)
@@ -37,7 +38,7 @@ const getMovies = (req, res, next) => {
     .catch(next);
 };
 
-// POST http://localhost:3001/movies/
+// POST http://localhost:3000/movies/
 const createMovie = (req, res, next) => {
   const {
     country,
@@ -80,16 +81,15 @@ const createMovie = (req, res, next) => {
     });
 };
 
-// DELETE http://localhost:3001/movies/movieId
+// DELETE http://localhost:3000/movies/movieId
 const deleteMovie = (req, res, next) => {
   const { movieId } = req.params;
   const userId = req.user._id;
-  console.log(movieId);
   Movies
     .findById(movieId)
     .then((movie) => {
       if (!movie) {
-        throw new UnderfinedError('Фимльм не найден');
+        throw new UnderfinedError(CodeStatus.UNDERFINED.FILM_MESSAGE);
       }
       if (userId !== movie.owner.valueOf()) {
         throw new ForbiddenError();

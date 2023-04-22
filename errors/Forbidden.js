@@ -1,9 +1,11 @@
+const { CodeStatus } = require('../constans/CodeStatus');
+
 class ForbiddenError extends Error {
   constructor() {
     super();
-    this.message = 'Недостаточно прав';
+    this.message = CodeStatus.FORBIDDEN.MESSAGE;
     this.name = 'ForbiddenError';
-    this.statusCode = 403;
+    this.statusCode = CodeStatus.FORBIDDEN.CODE;
   }
 }
 

@@ -1,13 +1,24 @@
+const PATTERN_URL = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
+
 const CodeStatus = {
-  OK: { CODE: 200 },
-  CREATED: { CODE: 201 },
+  OK: {
+    CODE: 200,
+    MESSAGE: 'Успешно',
+  },
+  CREATED: {
+    CODE: 201,
+    USER_MESSAGE: 'Пользователь зарегестрирован',
+    FILM_MESSAGE: 'Фильм добавлен',
+  },
   NO_VALIDATE: {
     CODE: 400,
     MESSAGE: 'Переданы некорректные данные',
+    MAIL_MESSAGE: 'Неправильный формат почты',
   },
   UNAUTHORIZED: {
     CODE: 401,
-    MESSAGE: 'Проверьте почту и пароль',
+    MESSAGE: 'Необходима авторизация',
+    MESSAGE_AUTH: 'Неправильные почта или пароль',
   },
   FORBIDDEN: {
     CODE: 403,
@@ -16,7 +27,8 @@ const CodeStatus = {
   UNDERFINED: {
     CODE: 404,
     USER_MESSAGE: 'Пользователь не найден',
-    CARD_MESSAGE: 'Карточка не найдена',
+    FILM_MESSAGE: 'Фильм не найден',
+    PATH_MESSAGE: 'Обращение по необъявленному пути',
     TEAPOT_MESSAGE: 'я - чайник!',
   },
   CONFLICT: {
@@ -29,4 +41,4 @@ const CodeStatus = {
   },
 };
 
-module.exports = { CodeStatus };
+module.exports = { CodeStatus, PATTERN_URL };

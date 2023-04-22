@@ -5,6 +5,7 @@ const authRoutes = require('./auth');
 const { auth } = require('../midldlewares/auth');
 
 const UnderfinedError = require('../errors/Underfined');
+const { CodeStatus } = require('../constans/CodeStatus');
 
 router.post('/signup', authRoutes);
 router.post('/signin', authRoutes);
@@ -16,7 +17,7 @@ router.use('/movies', movieRoutes);
 
 router.use(
   (req, res, next) => {
-    next(new UnderfinedError('Обращение по необъявленному пути'));
+    next(new UnderfinedError(CodeStatus.UNDERFINED.PATH_MESSAGE));
   },
 );
 

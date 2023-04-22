@@ -1,9 +1,11 @@
+const { CodeStatus } = require('../constans/CodeStatus');
+
 class NoValidateError extends Error {
   constructor() {
     super();
-    this.message = 'Переданы некорректные данные';
+    this.message = CodeStatus.NO_VALIDATE.MESSAGE;
     this.name = 'NoValidateError';
-    this.statusCode = 400;
+    this.statusCode = CodeStatus.NO_VALIDATE.CODE;
   }
 }
 

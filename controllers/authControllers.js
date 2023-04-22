@@ -44,7 +44,8 @@ const createUser = (req, res, next) => {
           }
           next(err);
         });
-    });
+    })
+    .catch(next);
 };
 
 // POST http://localhost:3001/login
@@ -54,7 +55,7 @@ const login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jsonwebtoken.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
-      res.send({ token, message: 'Пользователь зарегестрирован' });
+      res.send({ token, message: CodeStatus.OK.MESSAGE });
     })
     .catch(next);
 };

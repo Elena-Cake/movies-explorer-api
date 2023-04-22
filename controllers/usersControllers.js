@@ -3,6 +3,7 @@ const { CodeStatus } = require('../constans/CodeStatus');
 const User = require('../models/user');
 const UnderfinedError = require('../errors/Underfined');
 const NoValidateError = require('../errors/NoValidate');
+const ConflictError = require('../errors/Conflict');
 
 const createUserDTO = (user) => (
   {
@@ -14,13 +15,12 @@ const createUserDTO = (user) => (
 
 // GET http://localhost:3001/users/me
 const getProfile = (req, res, next) => {
-  console.log('get me');
   const userId = req.user._id;
   User
     .findById(userId)
     .then((user) => {
       if (!user) {
-        throw new UnderfinedError('Пользователь не найден');
+        throw new UnderfinedError(CodeStatus.UNDERFINED.USER_MESSAGE);
       }
       res.status(CodeStatus.OK.CODE)
         .send(createUserDTO(user));
@@ -36,15 +36,13 @@ const getProfile = (req, res, next) => {
 
 // PATCH http://localhost:3000/users/me/
 const updateProfile = (req, res, next) => {
-  console.log('patch me');
   const { name, email } = req.body;
-  console.log(email);
   const userId = req.user._id;
   User
-    .findByIdAndUpdate(userId, { name, email }, { new: true, runValidators: true })
+    .findByIdAndUpdate(userId, { name, email }, { new: true, runValidators: true, upsert: false })
     .then((user) => {
       if (!user) {
-        throw new UnderfinedError('Пользователь не найден');
+        throw new UnderfinedError(CodeStatus.UNDERFINED.USER_MESSAGE);
       }
       res.status(CodeStatus.OK.CODE)
         .send(user);
@@ -52,6 +50,10 @@ const updateProfile = (req, res, next) => {
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
         next(new NoValidateError());
+        return;
+      }
+      if (err.code === 11000) {
+        next(new ConflictError());
         return;
       }
       next(err);

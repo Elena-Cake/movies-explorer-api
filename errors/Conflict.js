@@ -1,9 +1,11 @@
+const { CodeStatus } = require('../constans/CodeStatus');
+
 class ConflictError extends Error {
   constructor() {
     super();
-    this.message = 'Пользователь с такими данными уже существует';
+    this.message = CodeStatus.CONFLICT.MESSAGE;
     this.name = 'ConflictError';
-    this.statusCode = 409;
+    this.statusCode = CodeStatus.CONFLICT.CODE;
   }
 }
 
